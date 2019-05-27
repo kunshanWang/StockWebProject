@@ -1,5 +1,6 @@
-m_debug = 1
+m_debug = 0
 import twstock
+import sys
 #stock = twstock.Stock('2330')
 #print(stock.sid)
 
@@ -40,6 +41,7 @@ try:
     v_createtablecur.execute(v_sqlcommand)
 except Exception as e:
     print(str(e))
+    sys.exit()
 
 
 v_stockkeylist = twstock.codes.keys()
