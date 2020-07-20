@@ -8,6 +8,8 @@ from wtforms.validators import DataRequired
 from StockWebUtility import MySqlObject
 from StockWebUtility import StockUpdate
 from flask_socketio import SocketIO, emit
+import datetime
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
@@ -68,14 +70,30 @@ def index():
 #        result = Mysqlobject.Query5avOver20av()[0]
         query_result=result
         print(query_result)
-    return render_template('index.html', form=form, Query_result=result, Query_condiction=strQuery)
+    return render_template('Analyze.html', form=form, Query_result=result, Query_condiction=strQuery)
 
 @socketio.on('connect')
 def testconnect():
-    print("receive io connect")
+    print("receive io connect")    
     socketio.emit('log', 'socket server-client connect')
 #    print("Progress update")
 #    socketio.emit('Progress', '20/110')
+
+@socketio.on('ConsoleAP_Connect')
+def ConsoleCnt():
+    print("Welcome Console AP")
+    socketio.emit('Console_push', 'I see you, console AP')
+    
+#    print("Progress update")
+#    socketio.emit('Progress', '20/110')
+
+
+@socketio.on('AddWatch')
+def handle_message(id):
+    print('AddWatch id: ' + id)
+    thisdict = dict(tablieid = id, name = "test")
+    jasondata = json.dumps(thisdict)
+    socketio.emit('Console_push_parson', jasondata)
 
 @app.route('/Update')
 def Update():
@@ -142,4 +160,4 @@ def QueryData():
 
 #app.run('localhost', 5100)
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app,'localhost',5000)

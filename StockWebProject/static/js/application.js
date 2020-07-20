@@ -14,6 +14,8 @@ $(document).ready(function(){
         console.log("Progress update");
         var res = msg.split("/");
         var precent = (parseInt(res[0]) / parseInt(res[1]) * 100).toPrecision(2);
+        precent = (precent > 100) ? 100 : precent;
+
         $("#progress-bar").css("width", precent + "%")
         $("#progress-span").text(msg + "(" + precent +"%)")
     });
@@ -30,6 +32,14 @@ $(document).ready(function(){
             numbers_string = numbers_string + '<p>' + numbers_received[i].toString() + '</p>';
         }
         $('#log').html(numbers_string);
+    });
+
+    $('input[type=button]').click(function () {
+        var name = $(this).attr('name');
+        socket.emit('AddWatch', name);
+        console.log(name);
+        //var name = $(this).name;
+        //console.log(name);
     });
 
 });

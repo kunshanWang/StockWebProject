@@ -10,3 +10,37 @@
     z-index: 2;
     color: black;
 }
+.Working_Area {
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+
+table#t01 {
+    width: 100%;
+    background-color: #f1f1c1;
+}
+table {
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+.Result_Area {
+    font-size: 20px;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+    font-size: 12px;
+}

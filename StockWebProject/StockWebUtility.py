@@ -124,10 +124,10 @@ class MySqlObject:
 
             if QOP == "Large":
                 if QP1list[0] > QP2list[0] and QP1list[1] < QP2list[1] :
-                    result.append(str(eachid))
+                    result.append(str(eachid).strip("id_"))
             else: 
                 if QP1list[0] < QP2list[0] and QP1list[1] > QP2list[1] :
-                    result.append(str(eachid))
+                    result.append(str(eachid).strip("id_"))
 
         result.pop(0)
         return result
@@ -251,7 +251,7 @@ class StockUpdate:
                     
                     if each_record.date.date() <= latestdateinDB:
                         continue
-                    msg = "Update id:" + eachid + " update Data at " + each_record.date.date().strftime("%Y %m %d")
+                    msg = "Update id:" + eachid + " update Data at " + each_record.date.date().strftime("%Y %m %d") + " nowdate: "+ datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
                     print(msg)
                     if socketio != None:
                         socketio.emit('log', 'update id:' + eachid)
