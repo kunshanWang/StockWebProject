@@ -20,6 +20,7 @@ $(document).ready(function(){
         $("#progress-span").text(msg + "(" + precent +"%)")
     });
 
+
     socket.on('newnumber', function(msg) {
         console.log("Received number" + msg.number);
         //maintain a list of ten numbers
